@@ -1,0 +1,44 @@
+<mvc:View controllerName="exportfile.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <Page id="page" title="{i18n>title}">
+        <content>
+            <Table id="exportTable" items="{/Customers}">
+            <headerToolbar>
+                	<OverflowToolbar>
+                        <Title text="Customers" level="H2" />
+                        <ToolbarSpacer/>
+                        <Button  text="Export To Excel " icon="sap-icon://excel-attachment"  press="onExportTable"></Button>
+		
+	                </OverflowToolbar>
+            </headerToolbar>
+                <columns>
+                    <Column>
+                        <Text text="Company Name"/>
+                    </Column>
+                    <Column>
+                        <Text text="Contact Name"/>
+                    </Column>
+                    <Column>
+                        <Text text="Address"/>
+                    </Column>
+                    <Column>
+                        <Text text="Phone"/>
+                    </Column>
+                </columns>
+
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Text text="{CompanyName}"/>
+                            <Text text="{ContactName}"/>
+                            <Text text="{Address}"/>
+                            <Text text="{Phone}"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+
+            </Table>
+        </content>
+    </Page>
+</mvc:View>

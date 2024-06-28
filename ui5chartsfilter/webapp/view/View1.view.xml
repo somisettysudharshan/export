@@ -1,0 +1,73 @@
+<mvc:View
+    controllerName="ui5chartsfilter.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:layout="sap.ui.layout"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data"
+>
+    <Page
+        id="page"
+        title="{i18n>title}"
+    >
+        <content>
+            <l:HorizontalLayout class="sapUiContentPadding">
+                <DatePicker
+                    id="fromDatePicker"
+                    placeholder="From Date"
+                    valueFormat="yyyy-MM-dd"
+                    displayFormat="short"
+                />
+                <DatePicker
+                    id="toDatePicker"
+                    placeholder="To Date"
+                    valueFormat="yyyy-MM-dd"
+                    displayFormat="short"
+                />
+                <Button
+                    text="Apply Filter"
+                    press="onApplyFilter"
+                />
+            </l:HorizontalLayout>
+
+            <viz:VizFrame
+                id="barChart"
+                uiConfig="{applicationSet:'fiori'}"
+                height="100%"
+                width="100%"
+            >
+                <viz:dataset>
+                    <viz.data:FlattenedDataset data="{/PurchaseOrders}">
+                        <viz.data:dimensions>
+                            <viz.data:DimensionDefinition
+                                name="Supplier Name"
+                                value="{path: 'SupplierName', formatter: '.formatMonth'}"
+                            />
+                        </viz.data:dimensions>
+                        <viz.data:measures>
+                            <viz.data:MeasureDefinition
+                                name="Gross Amount"
+                                value="{path: 'GrossAmount'}"
+                            />      
+                        </viz.data:measures>
+                    </viz.data:FlattenedDataset>
+                </viz:dataset>
+                <viz:feeds>
+                    <viz.feeds:FeedItem
+                        uid="categoryAxis"
+                        type="Dimension"
+                        values="Supplier Name"
+                    />
+                    <viz.feeds:FeedItem
+                        uid="valueAxis"
+                        type="Measure"
+                        values="Gross Amount"
+                    />
+                </viz:feeds>
+            </viz:VizFrame>
+        </content>
+    </Page>
+</mvc:View>

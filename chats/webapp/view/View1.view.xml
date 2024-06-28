@@ -1,0 +1,36 @@
+<mvc:View controllerName="chats.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:layout="sap.ui.layout"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data"
+    >
+    <Page id="page" title="{i18n>title}">
+        <content>
+        <l:HorizontalLayout class="sapUiContentPadding">
+    <DatePicker id="fromDatePicker" placeholder="From Date" valueFormat="yyyy-MM-dd" displayFormat="short"/>
+    <DatePicker id="toDatePicker" placeholder="To Date" valueFormat="yyyy-MM-dd" displayFormat="short"/>
+    <Button text="Apply Filter" press="onApplyFilter"/>
+</l:HorizontalLayout>
+
+<viz:VizFrame id="barChart" uiConfig="{applicationSet:'fiori'}" height="400px">
+    <viz:dataset>
+        <viz.data:FlattenedDataset data="{/Orders}">
+            <viz.data:dimensions>
+                <viz.data:DimensionDefinition name="Month" value="{path: 'OrderDate', formatter: '.formatMonth'}"/>
+            </viz.data:dimensions>
+            <viz.data:measures>
+                <viz.data:MeasureDefinition name="Count" value="{path: 'OrderID'}"/>
+            </viz.data:measures>
+        </viz.data:FlattenedDataset>
+    </viz:dataset>
+    <viz:feeds>
+        <viz.feeds:FeedItem uid="categoryAxis" type="Dimension" values="Month"/>
+        <viz.feeds:FeedItem uid="valueAxis" type="Measure" values="Count"/>
+    </viz:feeds>
+</viz:VizFrame>
+        </content>
+    </Page>
+</mvc:View>

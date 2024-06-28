@@ -1,0 +1,85 @@
+<mvc:View
+    controllerName="sampleform.controller.View1"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    height="100%"
+>
+    <Page
+        id="page"
+        title="{i18n>title}"
+    >
+        <content>
+            <Bar>
+                <contentRight>
+                    <Button
+                        icon="sap-icon://print"
+                        press="onPressPrint"
+                    />
+                </contentRight>
+            </Bar>
+
+            <Table
+                id="IDOrderTable"
+                alternateRowColors="true"
+                inset="false"
+                mode="SingleSelectLeft"
+                items="{
+			        path: '/PurchaseOrders',
+			        sorter: { path: 'POId', descending: true}
+		}"
+            >
+                <columns>
+                    <Column width="12em">
+                        <Text text="Purchase OrderID" />
+                    </Column>
+                    <Column width="auto">
+                        <Text text="{i18n>TblOrderedById}" />
+                    </Column>
+                    <Column width="auto">
+                        <Text text="{i18n>TblChangedAt}" />
+                    </Column>
+                    <Column width="auto">
+                        <Text text="{i18n>TblLaterDelivDateExist}" />
+                    </Column>
+                    <Column width="auto">
+                        <Text text="{Status}" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem vAlign="Middle">
+                        <cells>
+                            <!-- <ObjectIdentifier
+                                                            title="{POId}"
+                                                            text=""
+                                                        /> -->
+
+                            <!-- <Input maxLength="10" value="{POId}"></Input> -->
+                            <!-- <Input maxLength="{path : '/#PurchaseOrders/POId/@maxLength',formatter: '.Formatter.toInteger'}" value="{POId}"> </Input> -->
+                            <Input
+                                maxLength="{path : '/#PurchaseOrder/POId/@maxLength' ,formatter: '.Formatter.toInteger'}"
+                                value="{POId}"
+                            />
+                            <Text text="{OrderedById}" />
+                            <Text
+                                text="{   path:'ChangedAt',
+                                                        formatter:'.Formatter.formatJSONDateTime'}"
+                            />
+
+                            <ObjectStatus
+                                class="sapUiSmallMarginBottom"
+                                text="{path: 'LaterDelivDateExist',
+                                             formatter:'.Formatter.DeliveryStatus'}"
+                                inverted="true"
+                                icon="sap-icon://shipping-status"
+                                state="{path: 'LaterDelivDateExist',
+                                            formatter:'.Formatter.DeliveryStatusState'}"
+                            />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+            <Toolbar />
+        </content>
+    </Page>
+</mvc:View>
